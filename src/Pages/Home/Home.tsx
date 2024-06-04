@@ -1,3 +1,4 @@
+import { getAuth, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getSport } from "../../api/Sports";
@@ -8,7 +9,9 @@ import {
   ViewImage,
 } from "../../Components";
 import { Image } from "../../Components/Image";
+import appFirebase from "../../Credentials";
 import { Images } from "../../utils/media";
+const auth = getAuth(appFirebase);
 
 const ContainerButtons = styled.div`
   width: 100%;
@@ -106,6 +109,7 @@ export const Home = () => {
         <ButtonLike onClick={() => onRateImage("like")}>
           <Image alt="heart" src={Images.heart} />
         </ButtonLike>
+        <button onClick={() => signOut(auth)}>salir</button>
       </ContainerButtons>
       <ContainerTabs>
         <TabsButton tabs={tabs} />

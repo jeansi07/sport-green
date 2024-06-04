@@ -1,0 +1,9 @@
+html,
+body,
+#root {
+  height: 100%;
+  font-family: "DM Sans", Arial, Helvetica, sans-serif;
+}
+body {
+  margin: 0;
+}

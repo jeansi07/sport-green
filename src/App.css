@@ -1,0 +1,25 @@
+@keyframes dislike-animation {
+  to {
+    transform: rotate(-45deg) translate(-200%, 50%);
+  }
+}
+
+@keyframes like-animation {
+  to {
+    transform: rotate(45deg) translate(200%, 50%);
+  }
+}
+
+.like-animation {
+  animation-name: like-animation;
+  animation-duration: 1.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+.dislike-animation {
+  animation-name: dislike-animation;
+  animation-duration: 1.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}

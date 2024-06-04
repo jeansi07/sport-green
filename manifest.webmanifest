@@ -1,0 +1,40 @@
+{
+    "name": "SPORT-GREEN",
+    "short_name": "ReactApp",
+    "description": "Una aplicación React configurada como PWA usando Vite.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#FFFFFF", 
+    "theme_color": "#000000", 
+    "icons": [
+      {
+        "src": "icons/dog.png",
+        "sizes": "128x128",
+        "type": "image/png",
+        "purpose": "any"
+      },
+      {
+        "src": "icons/dog.png",
+        "sizes": "128x128",
+        "type": "image/png",
+        "purpose": "any"
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "screenshots/animal.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "form_factor": "wide",
+        "purpose": "any"
+      },
+      {
+        "src": "screenshots/animal.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "form_factor": "narrow",
+        "purpose": "any"
+      }
+    ]
+  }
+  

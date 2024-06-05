@@ -11,6 +11,7 @@ import appFirebase from "../../Credentials";
 
 const auth = getAuth(appFirebase);
 const Container = styled.div`
+  max-width: 390px;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -29,10 +29,12 @@ const ContainerDiv = styled.div`
   padding: 0px 32px;
 `;
 const Container = styled.div`
-  height: 100vh;
+  max-width: 390px;
+  height: 100%;
   display: flex;
   background-color: #181828;
   flex-direction: column;
+  margin: auto;
 `;
 
 const ContainerCards = styled.div`

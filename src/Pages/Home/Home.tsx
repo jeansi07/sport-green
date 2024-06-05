@@ -24,9 +24,11 @@ const ContainerButtons = styled.div`
   gap: 12px;
 `;
 const Container = styled.div`
+  max-width: 390px;
   display: flex;
   flex-direction: column;
   height: 100%;
+  margin: auto;
   justify-content: space-between;
   overflow: hidden;
   background-color: #181828;

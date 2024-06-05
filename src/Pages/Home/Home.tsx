@@ -1,4 +1,6 @@
 import { getAuth, signOut } from "firebase/auth";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
+
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getSport } from "../../api/Sports";
@@ -42,6 +44,7 @@ const CardsContainer = styled.div`
 interface CardImageInterface {
   title: string;
   image: string;
+  idSport: string;
   rate?: "like" | "dislike";
 }
 
@@ -52,8 +55,20 @@ export const Home = () => {
     "like" | "dislike" | undefined
   >(undefined);
 
-  const onRateImage = (rate: "like" | "dislike") => {
+  const onRateImage = async (rate: "like" | "dislike", idSport: string) => {
+    const docRef = doc(
+      getFirestore(),
+      "reactions",
+      `${idSport}-${auth.currentUser?.uid}`
+    );
     setCurrentAnimation(rate);
+    await setDoc(docRef, {
+      rate,
+      userId: auth.currentUser?.uid,
+      idSport,
+      images: images.find((item) => item.idSport === idSport)?.image,
+      title: images.find((item) => item.idSport === idSport)?.title,
+    });
     setTimeout(() => {
       const updatedImages = [...images];
       updatedImages[currentImageIndex].rate = rate;
@@ -64,9 +79,8 @@ export const Home = () => {
   };
 
   const tabs = [
-    { image: Images.home },
-    { image: Images.timer },
-    { image: Images.logout },
+    { image: Images.home, path: "/home" },
+    { image: Images.timer, path: "/history" },
   ];
 
   const allSport = async (): Promise<void> => {
@@ -76,6 +90,7 @@ export const Home = () => {
         res.sports.map((item) => ({
           image: item.strSportThumb,
           title: item.strSport,
+          idSport: item.idSport,
         }))
       );
     } catch (error) {
@@ -103,10 +118,16 @@ export const Home = () => {
         )}
       </CardsContainer>
       <ContainerButtons>
-        <ButtonDislike onClick={() => onRateImage("dislike")}>
+        <ButtonDislike
+          onClick={() =>
+            onRateImage("dislike", images[currentImageIndex].idSport)
+          }
+        >
           <Image $width="19px" $height="19px" alt="close" src={Images.close} />
         </ButtonDislike>
-        <ButtonLike onClick={() => onRateImage("like")}>
+        <ButtonLike
+          onClick={() => onRateImage("like", images[currentImageIndex].idSport)}
+        >
           <Image alt="heart" src={Images.heart} />
         </ButtonLike>
         <button onClick={() => signOut(auth)}>salir</button>

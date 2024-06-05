@@ -1,4 +1,4 @@
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 
 import { useEffect, useState } from "react";
@@ -29,6 +29,7 @@ const Container = styled.div`
   height: 100%;
   justify-content: space-between;
   overflow: hidden;
+  background-color: #181828;
 `;
 const ContainerTabs = styled.div`
   padding-bottom: 20px;
@@ -39,6 +40,12 @@ const CardsContainer = styled.div`
   position: relative;
   width: 100%;
   height: 65vh;
+`;
+const Message = styled.p`
+  color: #333;
+  font-size: 1.5rem;
+  text-align: center;
+  justify-content: center;
 `;
 
 interface CardImageInterface {
@@ -81,6 +88,7 @@ export const Home = () => {
   const tabs = [
     { image: Images.home, path: "/home" },
     { image: Images.timer, path: "/history" },
+    { image: Images.logout, path: "/logout" },
   ];
 
   const allSport = async (): Promise<void> => {
@@ -105,16 +113,22 @@ export const Home = () => {
   return (
     <Container>
       <CardsContainer>
-        {images.map(
-          (item, index) =>
-            index === currentImageIndex && (
-              <ViewImage
-                key={item.title}
-                animation={currentAnimation}
-                src={item.image}
-                title={item.title}
-              />
-            )
+        {images.length === 0 ? (
+          <Message>
+            You reached the limit of the free tier limit for today.
+          </Message>
+        ) : (
+          images.map(
+            (item, index) =>
+              index === currentImageIndex && (
+                <ViewImage
+                  key={item.title}
+                  animation={currentAnimation}
+                  src={item.image}
+                  title={item.title}
+                />
+              )
+          )
         )}
       </CardsContainer>
       <ContainerButtons>
@@ -130,7 +144,6 @@ export const Home = () => {
         >
           <Image alt="heart" src={Images.heart} />
         </ButtonLike>
-        <button onClick={() => signOut(auth)}>salir</button>
       </ContainerButtons>
       <ContainerTabs>
         <TabsButton tabs={tabs} />

@@ -12,6 +12,8 @@ const Container = styled.div`
   height: 100vh;
 `;
 const ContainerDiv = styled.div`
+  max-width: 390px;
+  margin: auto;
   height: 100%;
   display: flex;
   background-color: #181828;

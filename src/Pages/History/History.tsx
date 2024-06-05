@@ -8,6 +8,7 @@ import {
   where,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Paragraph, TabsButton } from "../../Components";
 import { Card } from "../../Components/Card";
@@ -70,6 +71,7 @@ const ParagraphMessages = styled.div`
 
 export const History = () => {
   const [reactions, setReactions] = useState<DocumentData[]>([]);
+  const navigate = useNavigate();
   const tabs = [
     { image: Images.home, path: "/home" },
     { image: Images.timer, path: "/history" },
@@ -91,7 +93,7 @@ export const History = () => {
     <>
       <Container>
         <ContainerDiv>
-          <ButtonLeft>
+          <ButtonLeft onClick={() => navigate(-1)}>
             <ImageLeft src={Images.arrowLeft} />
           </ButtonLeft>
           <Title>History</Title>

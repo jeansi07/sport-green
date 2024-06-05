@@ -10,9 +10,7 @@ interface CardProps {
 const CardContainer = styled.div`
   width: 100%;
   height: 77px;
-
   border-radius: 12px;
-  overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
@@ -25,6 +23,7 @@ const MainImage = styled.div<{ image: string }>`
   background-image: url(${({ image }) => image});
   background-size: cover;
   background-position: center;
+  border-radius: 12px;
   position: relative;
 `;
 

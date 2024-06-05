@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 interface TabButtonProps {
@@ -6,7 +7,7 @@ interface TabButtonProps {
 }
 
 interface TabsButtonProps {
-  tabs: { image: string }[];
+  tabs: { image: string; path: string }[];
 }
 
 const TabsContainer = styled.div`
@@ -53,15 +54,18 @@ const TabButton = styled.button<TabButtonProps>`
 `;
 
 export const TabsButton: React.FC<TabsButtonProps> = ({ tabs }) => {
-  const [selectedTab, setSelectedTab] = useState(0);
+  const navigate = useNavigate();
+  const handleTabClick = (path: string) => {
+    navigate(path);
+  };
 
   return (
     <TabsContainer>
       {tabs.map((tab, index) => (
         <TabButton
           key={index}
-          selected={index === selectedTab}
-          onClick={() => setSelectedTab(index)}
+          selected={window.location.pathname === tab.path}
+          onClick={() => handleTabClick(tab.path)}
         >
           <img src={tab.image} alt={`tab-${index}`} />
         </TabButton>

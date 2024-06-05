@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
-import React from "react";
+import React, { ChangeEvent } from "react";
 
 interface InputProps {
   title: string;
-  type: "text" | "password";
+  type: "text" | "password" | "email";
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  name?: string;
+  value?: string;
 }
 
 export const InputStyled = styled.input`
@@ -34,11 +37,17 @@ export const Label = styled.label`
   opacity: 60%;
 `;
 
-export const Input: React.FC<InputProps> = ({ title, type }) => {
+export const Input: React.FC<InputProps> = ({
+  title,
+  type,
+  onChange,
+  name,
+  value,
+}) => {
   return (
     <InputContainer>
       <Label>{title}</Label>
-      <InputStyled type={type} />
+      <InputStyled value={value} name={name} onChange={onChange} type={type} />
     </InputContainer>
   );
 };

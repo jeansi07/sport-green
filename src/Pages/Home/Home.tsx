@@ -1,3 +1,6 @@
+import { getAuth } from "firebase/auth";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
+
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getSport } from "../../api/Sports";
@@ -8,7 +11,9 @@ import {
   ViewImage,
 } from "../../Components";
 import { Image } from "../../Components/Image";
+import appFirebase from "../../Credentials";
 import { Images } from "../../utils/media";
+const auth = getAuth(appFirebase);
 
 const ContainerButtons = styled.div`
   width: 100%;
@@ -24,6 +29,7 @@ const Container = styled.div`
   height: 100%;
   justify-content: space-between;
   overflow: hidden;
+  background-color: #181828;
 `;
 const ContainerTabs = styled.div`
   padding-bottom: 20px;
@@ -35,10 +41,17 @@ const CardsContainer = styled.div`
   width: 100%;
   height: 65vh;
 `;
+const Message = styled.p`
+  color: #333;
+  font-size: 1.5rem;
+  text-align: center;
+  justify-content: center;
+`;
 
 interface CardImageInterface {
   title: string;
   image: string;
+  idSport: string;
   rate?: "like" | "dislike";
 }
 
@@ -49,8 +62,20 @@ export const Home = () => {
     "like" | "dislike" | undefined
   >(undefined);
 
-  const onRateImage = (rate: "like" | "dislike") => {
+  const onRateImage = async (rate: "like" | "dislike", idSport: string) => {
+    const docRef = doc(
+      getFirestore(),
+      "reactions",
+      `${idSport}-${auth.currentUser?.uid}`
+    );
     setCurrentAnimation(rate);
+    await setDoc(docRef, {
+      rate,
+      userId: auth.currentUser?.uid,
+      idSport,
+      images: images.find((item) => item.idSport === idSport)?.image,
+      title: images.find((item) => item.idSport === idSport)?.title,
+    });
     setTimeout(() => {
       const updatedImages = [...images];
       updatedImages[currentImageIndex].rate = rate;
@@ -61,9 +86,9 @@ export const Home = () => {
   };
 
   const tabs = [
-    { image: Images.home },
-    { image: Images.timer },
-    { image: Images.logout },
+    { image: Images.home, path: "/home" },
+    { image: Images.timer, path: "/history" },
+    { image: Images.logout, path: "/logout" },
   ];
 
   const allSport = async (): Promise<void> => {
@@ -73,6 +98,7 @@ export const Home = () => {
         res.sports.map((item) => ({
           image: item.strSportThumb,
           title: item.strSport,
+          idSport: item.idSport,
         }))
       );
     } catch (error) {
@@ -87,23 +113,35 @@ export const Home = () => {
   return (
     <Container>
       <CardsContainer>
-        {images.map(
-          (item, index) =>
-            index === currentImageIndex && (
-              <ViewImage
-                key={item.title}
-                animation={currentAnimation}
-                src={item.image}
-                title={item.title}
-              />
-            )
+        {images.length === 0 ? (
+          <Message>
+            You reached the limit of the free tier limit for today.
+          </Message>
+        ) : (
+          images.map(
+            (item, index) =>
+              index === currentImageIndex && (
+                <ViewImage
+                  key={item.title}
+                  animation={currentAnimation}
+                  src={item.image}
+                  title={item.title}
+                />
+              )
+          )
         )}
       </CardsContainer>
       <ContainerButtons>
-        <ButtonDislike onClick={() => onRateImage("dislike")}>
+        <ButtonDislike
+          onClick={() =>
+            onRateImage("dislike", images[currentImageIndex].idSport)
+          }
+        >
           <Image $width="19px" $height="19px" alt="close" src={Images.close} />
         </ButtonDislike>
-        <ButtonLike onClick={() => onRateImage("like")}>
+        <ButtonLike
+          onClick={() => onRateImage("like", images[currentImageIndex].idSport)}
+        >
           <Image alt="heart" src={Images.heart} />
         </ButtonLike>
       </ContainerButtons>

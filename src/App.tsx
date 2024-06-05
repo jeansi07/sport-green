@@ -2,7 +2,8 @@ import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { useEffect, useState } from "react";
 import appFirebase from "../src/Credentials";
 import "./App.css";
-import { Home, SingIn } from "./Pages";
+import { SingIn } from "./Pages";
+import AppRoutes from "./routes/router";
 
 const auth = getAuth(appFirebase);
 
@@ -21,7 +22,7 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  return <>{user ? <Home /> : <SingIn />}</>;
+  return <>{user ? <AppRoutes /> : <SingIn />}</>;
 }
 
 export default App;

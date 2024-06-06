@@ -12,8 +12,8 @@ interface InputProps {
 
 export const InputStyled = styled.input`
   border-radius: 12px;
-  background-color: #2f2f43;
-  color: #ffffff;
+  background-color: ${({ theme }) => theme.bgInput};
+  color: ${({ theme }) => theme.colorTextInput};
   margin-top: 5px;
   border: none;
   outline: none;
@@ -21,7 +21,7 @@ export const InputStyled = styled.input`
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #2f2f43;
+  background-color: ${({ theme }) => theme.bgInput};
   border: 1px;
   border-radius: 12px;
   padding-left: 16px;
@@ -33,7 +33,7 @@ export const InputContainer = styled.div`
 export const Label = styled.label`
   font-size: 14px;
   font-weight: 700;
-  color: #fefefe;
+  color: ${({ theme }) => theme.labelInput};
   opacity: 60%;
 `;
 

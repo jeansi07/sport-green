@@ -20,7 +20,7 @@ const Container = styled.div`
   margin: auto;
   width: auto;
   height: 100%;
-  background-color: #181828;
+  background-color: ${({ theme }) => theme.bgc};
 `;
 
 const ContainerInput = styled.div`
@@ -66,7 +66,19 @@ const ContainerRegister = styled.div`
 
 const ParagraphRegister = styled.p`
   margin: 0;
-  color: ${({ theme }) => theme.paragraph};
+  color: ${({ theme }) => theme.buttonLoginText};
+`;
+
+const ParagraphAccount = styled.p`
+  margin: 0;
+  color: ${({ theme }) => theme.ParagraphAccount};
+`;
+const ParagraphLogin = styled.p`
+  margin: 0;
+  color: ${({ theme }) => theme.buttonLoginText};
+  font-weight: 700;
+  font-family: "Dm Sans";
+  font-size: 18px;
 `;
 
 export const SingIn = () => {
@@ -103,7 +115,11 @@ export const SingIn = () => {
       <form onSubmit={onSubmitLogin}>
         <Title>Welcome</Title>
         <ContainerParagrahp>
-          <Paragraph $family="Epilogue" $positions="center">
+          <Paragraph
+            $weightParagrahp={400}
+            $family="Epilogue"
+            $positions="center"
+          >
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </Paragraph>
         </ContainerParagrahp>
@@ -115,17 +131,15 @@ export const SingIn = () => {
         <ContainerLogin>
           <Button type="submit">
             <ContainerParagrahpLogin>
-              <Paragraph $weightParagrahp={700}>
-                {register ? "Register" : "Login"}
-              </Paragraph>
+              <ParagraphLogin>{register ? "Register" : "Login"}</ParagraphLogin>
             </ContainerParagrahpLogin>
           </Button>
         </ContainerLogin>
       </form>
       <ContainerRegister>
-        <ParagraphRegister>
+        <ParagraphAccount>
           {register ? "if you have an account, " : " don't have an account? "}
-        </ParagraphRegister>
+        </ParagraphAccount>
         <ButtonRegister onClick={() => setRegister(!register)}>
           <ParagraphRegister>
             {register ? "log in" : "Register"}

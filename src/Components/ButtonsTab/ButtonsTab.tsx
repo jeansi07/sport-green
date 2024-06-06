@@ -34,7 +34,7 @@ const TabButton = styled.button<TabButtonProps>`
   ${({ selected }) =>
     selected &&
     css`
-      background-color: white;
+      background-color: "#1F1F31";
     `}
 
   &:hover {

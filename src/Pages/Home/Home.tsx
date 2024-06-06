@@ -31,7 +31,7 @@ const Container = styled.div`
   margin: auto;
   justify-content: space-between;
   overflow: hidden;
-  background-color: #181828;
+  background-color: ${({ theme }) => theme.bgc};
 `;
 const ContainerTabs = styled.div`
   padding-bottom: 20px;
@@ -44,7 +44,7 @@ const CardsContainer = styled.div`
   height: 65vh;
 `;
 const Message = styled.p`
-  color: #333;
+  color: ${({ theme }) => theme.paragraph};
   font-size: 1.5rem;
   text-align: center;
   justify-content: center;

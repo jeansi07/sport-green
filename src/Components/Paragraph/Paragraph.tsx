@@ -7,6 +7,8 @@ export const Paragraph = styled.p<{
   $weightParagrahp?: number;
   $lineParagrahp?: number;
 }>`
+  color: ${({ theme }) => theme.paragraph};
+  opacity: ${({ theme }) => theme.opacityParagraph};
   font-size: ${(props) => props.$size || "18px"};
   font-weight: ${(props) => props.$weightParagrahp || 200};
   font-family: ${(props) => props.$family || "Dm Sans"};

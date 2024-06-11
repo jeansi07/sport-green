@@ -95,7 +95,7 @@ export const SingIn = () => {
       try {
         await createUserWithEmailAndPassword(auth, email, password);
         alert("created in successfully!");
-        navigate("/Home");
+        navigate("/home");
       } catch (error) {
         alert("make sure your password is more than 8 characters long");
       }
@@ -103,7 +103,7 @@ export const SingIn = () => {
       try {
         await signInWithEmailAndPassword(auth, email, password);
         alert("Logged in successfully!");
-        navigate("/Home");
+        navigate("/home");
       } catch (error) {
         alert("Failed to log in. Please check your credentials.");
       }
